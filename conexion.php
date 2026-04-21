@@ -3,7 +3,7 @@
  * CONFIGURACIÓN DE CONEXIÓN A LA BASE DE DATOS
  * Este archivo define los parámetros para conectarse al servidor MySQL.
  */
-$host = "localhost"; // Servidor de base de datos
+$host = "localhost"; // Servidor de base de datos (usando IP para estabilidad)
 $user = "root";      // Usuario por defecto en XAMPP
 $pass = "";          // Contraseña (vacía por defecto)
 $db = "registro";  // Nombre de la base de datos

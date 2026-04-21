@@ -8,12 +8,13 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>glow belleza | Makeup Artistry</title>
-    <link rel="stylesheet" href="style.css?v=3.1">
+    <link rel="stylesheet" href="style.css?v=3.2">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@200;400;500&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <meta name="description"
         content="Descubre la belleza atemporal con glow belleza. Maquillaje de alta gama para la mujer moderna.">
 </head>
@@ -25,22 +26,30 @@ session_start();
     <header id="navbar">
         <div class="logo-container">
             <a href="#" class="logo-link">
-                <img src="logo_estudio.jpg" alt="Logo Luxury Glow" class="logo-img-circular">
-                <span class="logo-text">LUXURY GLOW</span>
+                <img src="logo.png" alt="Logo BEAUTY MAKEUP" class="logo-img-circular">
+                <span class="logo-text">BEAUTY MAKEUP</span>
             </a>
         </div>
         <nav>
             <ul class="nav-links">
                 <li><a href="#hero">Inicio</a></li>
                 <li><a href="#collection">Colección</a></li>
-                <li><a href="#about">Filosofía</a></li>
+                <li><a href="smart_beauty.php" style="color: var(--primary-color);">Análisis de piel</a></li>
+                <li><a href="#about">Nosotros</a></li>
                 <li><a href="#contact">Contacto</a></li>
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <li><a href="#booking" class="nav-cta">Citas</a></li>
-                    <li><a href="logout.php" style="color: #ff8888;">Salir</a></li>
+                    <li>
+                        <a href="#booking" class="nav-cta">
+                            <svg xmlns="http://www.w3.org/2003/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            Citas (<span id="menu-slots-count-badge">10</span>)
+                        </a>
+                    </li>
+                    <li><a href="logout.php" id="logout-btn">Salir</a></li>
                 <?php else: ?>
                     <li><a href="login.php" class="nav-cta">Login</a></li>
-                    <li><a href="registro.php" class="nav-cta" style="background: transparent; color: var(--primary-color); border: 1px solid var(--primary-color);">Registro</a></li>
+                    <li><a href="registro.php" class="nav-cta"
+                            style="background: transparent; color: var(--primary-color); border: 1px solid var(--primary-color);">Registro</a>
+                    </li>
                 <?php endif; ?>
             </ul>
         </nav>
@@ -54,7 +63,10 @@ session_start();
     <section id="hero" class="hero-section">
         <div class="hero-content">
             <h1 class="fade-in">Redefine tu <br><span class="highlight">Esencia</span></h1>
-            <a href="#collection" class="cta-button fade-in delay-2">Descubrir</a>
+            <div class="fade-in delay-2" style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <a href="#collection" class="cta-button">Descubrir</a>
+                <a href="evaluacion_facial.php" class="cta-button" style="background: var(--primary-color); color: #000;">Análisis Facial</a>
+            </div>
         </div>
         <div class="hero-visual fade-in delay-1"></div>
     </section>
@@ -62,59 +74,120 @@ session_start();
     <section id="collection" class="section-padding" style="padding-top:0;">
         <h2 class="section-title reveal">La Colección</h2>
         <div class="product-grid">
+            <?php
+            include 'conexion.php';
+            $res = $conexion->query("SELECT * FROM servicios WHERE activo = 1");
+            while($s = $res->fetch_assoc()):
+            ?>
             <div class="product-card reveal">
-                <img src="imagen1.jpg" alt="Natural" class="product-img">
-                <h3>NATURAL</h3>
-                <p class="price">EDICIÓN 01 — $500</p>
+                <img src="<?php echo htmlspecialchars($s['imagen']); ?>" alt="<?php echo htmlspecialchars($s['nombre']); ?>" class="product-img">
+                <h3 style="text-transform: uppercase;"><?php echo htmlspecialchars($s['nombre']); ?></h3>
+                <p class="price">$<?php echo number_format($s['precio'], 0); ?></p>
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <button class="cta-button reserve-btn" data-service="natural" style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%;">Reservar</button>
+                    <button class="cta-button reserve-btn" data-service="<?php echo htmlspecialchars(strtolower(str_replace(' ', '-', $s['nombre']))); ?>"
+                        style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%;">Reservar</button>
                 <?php else: ?>
-                    <a href="login.php" class="cta-button" style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%; text-align:center;">Reservar</a>
+                    <a href="login.php" class="cta-button"
+                        style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%; text-align:center;">Reservar</a>
                 <?php endif; ?>
             </div>
-            <div class="product-card reveal">
-                <img src="imagen2.jpg" alt="Soft Glam" class="product-img">
-                <h3>SOFT GLAM</h3>
-                <p class="price">EDICIÓN 02 — $600</p>
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <button class="cta-button reserve-btn" data-service="soft-glam" style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%;">Reservar</button>
-                <?php else: ?>
-                    <a href="login.php" class="cta-button" style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%; text-align:center;">Reservar</a>
-                <?php endif; ?>
-            </div>
-            <div class="product-card reveal">
-                <img src="imagen3.jpg" alt="Smokey Eyes" class="product-img">
-                <h3>SMOKEY</h3>
-                <p class="price">EDICIÓN 03 — $1200</p>
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <button class="cta-button reserve-btn" data-service="smokey-eyes" style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%;">Reservar</button>
-                <?php else: ?>
-                    <a href="login.php" class="cta-button" style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%; text-align:center;">Reservar</a>
-                <?php endif; ?>
-            </div>
+            <?php endwhile; ?>
         </div>
     </section>
 
-    <section id="about" class="section-padding philosophy-section">
-        <div class="container split-layout">
-            <div class="text-content">
-                <h2 class="section-title">Sobre Nosotros</h2>
-                <p>En Glow Belleza, nuestra <strong>Fortaleza</strong> reside en la combinación de técnica avanzada y un
-                    profundo entendimiento de la belleza individual. Nos dedicamos a resaltar lo mejor de cada persona
-                    con un toque de lujo y exclusividad.</p>
-                <div class="fortalezas-grid">
-                    <div class="fortaleza-item reveal">
-                        <h4>Atención Personalizada</h4>
-                        <p>Cada servicio es diseñado a medida para tus rasgos y estilo.</p>
+    <section id="about" class="section-padding team-section">
+        <div class="container">
+            <h2 class="section-title reveal">Desarrolladoras</h2>
+            <p class="section-subtitle reveal"
+                style="text-align: center; margin-bottom: 4rem; max-width: 800px; margin-left: auto; margin-right: auto; opacity: 0.8;">
+                Detrás de cada transformación hay un corazón dedicado. Conoce a los expertos que hacen posible la magia
+                de Glow Belleza.
+            </p>
+            <div class="dev-grid">
+
+                <div class="dev-card reveal">
+                    <div class="dev-img-container">
+                        <img src="nathalia.jpg" alt="Desarrollador 1" class="dev-img">
                     </div>
-                    <div class="fortaleza-item reveal">
-                        <h4>Productos Premium</h4>
-                        <p>Utilizamos solo las mejores marcas de la industria.</p>
+                    <div class="dev-info">
+                        <h3>Nathalia Corniel</h3>
+                        <p class="dev-role"></p>
                     </div>
                 </div>
+
+
+                <div class="dev-card reveal">
+                    <div class="dev-img-container">
+                        <img src="isairis.jpeg" alt="Desarrollador 2" class="dev-img">
+                    </div>
+                    <div class="dev-info">
+                        <h3>Isairis Ferrera</h3>
+                        <p class="dev-role"></p>
+                    </div>
+                </div>
+
+
+                <div class="dev-card reveal">
+                    <div class="dev-img-container">
+                        <img src="unnamed.png" alt="Desarrollador 3" class="dev-img">
+                    </div>
+                    <div class="dev-info">
+                        <h3>Ery Joel</h3>
+                        <p class="dev-role"></p>
+                    </div>
+                </div>
+
+
+                <div class="dev-card reveal">
+                    <div class="dev-img-container">
+                        <img src="Adam.jpg" alt="Desarrollador 4" class="dev-img">
+                    </div>
+                    <div class="dev-info">
+                        <h3>Adam Luis</h3>
+                        <p class="dev-role"></p>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 4rem;">
                 <a href="#contact" class="text-link">Contáctanos</a>
             </div>
-            <img src="imagen4.jpg" alt="Filosofía LUXURY GLOW" class="philosophy-img">
+        </div>
+
+        <!-- Cuadros Estilo Colección: Visión, Misión y Valores -->
+        <div id="mvv" class="container" style="margin-top: 5rem;">
+            <h2 class="section-title">Nuestra Esencia</h2>
+            <div class="product-grid" style="padding-top: 0; padding-bottom: 0;">
+
+                <!-- Visión -->
+                <div class="product-card reveal">
+                    <h3 style="margin-top: 1rem;">VISIÓN</h3>
+                    <p class="mvv-card-text"
+                        style="color: rgba(255,255,255,0.7); font-size: 0.95rem; line-height: 1.6;">
+                        Ser el referente de belleza auténtica e influyente en la región.
+                    </p>
+                    <div style="height: 20px;"></div>
+                </div>
+
+                <!-- Misión -->
+                <div class="product-card reveal">
+                    <h3 style="margin-top: 1rem;">MISIÓN</h3>
+                    <p class="mvv-card-text"
+                        style="color: rgba(255,255,255,0.7); font-size: 0.95rem; line-height: 1.6;">
+                        Realzar la belleza con arte, dedicación y productos premium.
+                    </p>
+                    <div style="height: 20px;"></div>
+                </div>
+
+                <!-- Valores -->
+                <div class="product-card reveal">
+                    <h3 style="margin-top: 1rem;">VALORES</h3>
+                    <p class="mvv-card-text"
+                        style="color: rgba(255,255,255,0.7); font-size: 0.95rem; line-height: 1.6;">
+                        Excelencia, Autenticidad, Respeto, Innovación y Confianza.
+                    </p>
+                    <div style="height: 20px;"></div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -122,8 +195,10 @@ session_start();
         <div id="booking-modal-overlay" class="modal-overlay">
             <div class="modal-container">
                 <span class="close-modal" id="close-booking-modal">&times;</span>
-                <h2 class="section-title" style="text-align: center; font-size: 2.2rem; margin-bottom: 2rem;">Confirma tu Fecha y Hora</h2>
-                <form class="booking-form" action="registro.php" method="POST" id="bookingForm" style="box-shadow: none; background: transparent; padding: 0; border: none;">
+                <h2 class="section-title" style="text-align: center; font-size: 2.2rem; margin-bottom: 2rem;">Confirma tu
+                    Fecha y Hora</h2>
+                <form class="booking-form" action="registro.php" method="POST" id="bookingForm"
+                    style="box-shadow: none; background: transparent; padding: 0; border: none;">
                     <input type="hidden" name="hora" id="selectedHora" required>
 
                     <div class="form-group triple">
@@ -134,16 +209,70 @@ session_start();
                         <input type="tel" name="telefono" placeholder="WhatsApp (Ej: +123...)" required>
                     </div>
 
-                    <div class="form-group" style="display: none;">
-                        <select name="servicio" id="servicio-select" required>
+                    <div class="form-group">
+                        <label for="servicio-select"
+                            style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: var(--primary-color);">Selecciona
+                            el Servicio deseado:</label>
+                        <select name="servicio" id="servicio-select" required
+                            style="width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(212,175,55,0.3); color: white; border-radius: 8px;">
                             <option value="" disabled selected>Selecciona Servicio</option>
-                            <option value="natural">Natural</option>
+                            <option value="natural">Maquillaje Natural</option>
                             <option value="soft-glam">Soft Glam</option>
                             <option value="smokey-eyes">Smokey Eyes</option>
+                            <option value="editorial">Editorial</option>
+                            <option value="bridal">Bridal</option>
+                            <option value="glam-night">Glam Night</option>
+                            <option value="eyes-only">Pestañas</option>
+                            <option value="cejas">Cejas</option>
                         </select>
                     </div>
 
-                    <p style="color: var(--primary-color); text-align: center; font-style: italic; margin-bottom: 1rem; font-size: 1.2rem;" id="selected-service-display">Servicio Seleccionado</p>
+                    <div class="form-group">
+                        <label for="metodo-pago"
+                            style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: var(--primary-color);">Método de Pago:</label>
+                        <select name="metodo_pago" id="metodo-pago" required
+                            style="width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(212,175,55,0.3); color: white; border-radius: 8px;">
+                            <option value="efectivo" selected>Efectivo (Pagar en local)</option>
+                            <option value="tarjeta">Tarjeta de Crédito / Débito</option>
+                        </select>
+                    </div>
+
+                    <!-- Campos de Tarjeta (Ocultos por defecto) -->
+                    <div id="card-details" style="display: none; margin-top: 20px; padding: 25px; background: rgba(223, 207, 190, 0.05); border: 1px solid rgba(223, 207, 190, 0.2); border-radius: 8px;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 20px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; text-align: center;">Detalles de la Tarjeta</h4>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <label for="card-type" style="display: block; margin-bottom: 8px; font-size: 0.85rem; color: var(--primary-color); text-transform: uppercase; letter-spacing: 1px;">Tipo de Tarjeta</label>
+                            <select id="card-type" style="width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(212,175,55,0.3); color: white; border-radius: 8px;">
+                                <option value="credito">Tarjeta de Crédito</option>
+                                <option value="debito">Tarjeta de Débito</option>
+                            </select>
+                        </div>
+
+                        <div style="margin-bottom: 20px;">
+                            <label for="card-number" style="display: block; margin-bottom: 8px; font-size: 0.85rem; color: var(--primary-color); text-transform: uppercase; letter-spacing: 1px;">Número de tarjeta</label>
+                            <input type="text" id="card-number" placeholder="XXXX XXXX XXXX XXXX" maxlength="16" style="width: 100%; letter-spacing: 2px;">
+                        </div>
+
+                        <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+                            <div style="flex: 1;">
+                                <label for="card-expiry" style="display: block; margin-bottom: 8px; font-size: 0.85rem; color: var(--primary-color); text-transform: uppercase; letter-spacing: 1px;">Fecha de expiración</label>
+                                <input type="text" id="card-expiry" placeholder="MM/AA" maxlength="5" style="width: 100%;">
+                            </div>
+                            <div style="flex: 1;">
+                                <label for="card-cvv" style="display: block; margin-bottom: 8px; font-size: 0.85rem; color: var(--primary-color); text-transform: uppercase; letter-spacing: 1px;">Código de seguridad</label>
+                                <input type="text" id="card-cvv" placeholder="CVV" maxlength="3" style="width: 100%;">
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 10px;">
+                             <label for="card-name" style="display: block; margin-bottom: 8px; font-size: 0.85rem; color: var(--primary-color); text-transform: uppercase; letter-spacing: 1px;">Nombre en la tarjeta</label>
+                             <input type="text" id="card-name" placeholder="Nombre como figura en la tarjeta" style="width: 100%;">
+                        </div>
+                    </div>
+
+                    <p style="color: var(--primary-color); text-align: center; font-style: italic; margin-bottom: 1rem; font-size: 1.2rem;"
+                        id="selected-service-display">Servicio Seleccionado</p>
 
                     <!-- Wrapper oculto para el input de fecha (para enviar con el form) -->
                     <input type="hidden" name="fecha" id="bookingDateInput" required>
@@ -174,6 +303,13 @@ session_start();
 
                             <!-- Time Slots (Debajo del calendario) -->
                             <div class="hours-container" id="hoursGrid" style="display: none;">
+                                <div id="available-counter"
+                                    style="text-align: center; margin-bottom: 1.5rem; padding: 10px; background: rgba(223, 207, 190, 0.05); border-radius: 8px; border: 1px solid rgba(223, 207, 190, 0.1);">
+                                    <span
+                                        style="color: var(--primary-color); font-weight: 500; letter-spacing: 1px; font-size: 0.95rem;">
+                                        Citas disponibles: <span id="slots-count">--</span>
+                                    </span>
+                                </div>
                                 <p style="color: #666; margin-bottom: 1rem; text-align: center; font-size: 0.9rem;">
                                     HORAS DISPONIBLES PARA <span id="selectedDateDisplay"
                                         style="color:#fff; font-weight: 500;"></span>
@@ -211,25 +347,53 @@ session_start();
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <h3>GLOW BELLEZA</h3>
-                    <p>Resaltando tu belleza natural con exclusividad y elegancia en cada detalle.</p>
+                    <h3>BEAUTY MAKEUP</h3>
+                    <p>Resaltando tu belleza natural con exclusividad y elegancia. Maquillaje de alta gama para cada
+                        momento especial.</p>
+                    <div class="footer-socials" style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+                        <a href="#" style="color: var(--primary-color); font-size: 1.2rem;"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="#" style="color: var(--primary-color); font-size: 1.2rem;"><i
+                                class="fab fa-tiktok"></i></a>
+                    </div>
                 </div>
                 <div class="footer-links">
                     <h4>Enlaces</h4>
                     <ul>
-                        <li><a href="#">Inicio</a></li>
+                        <li><a href="#hero">Inicio</a></li>
+                        <li><a href="#collection">Colección</a></li>
+                        <li><a href="#about">Equipo</a></li>
+                        <li><a href="#mvv">Nuestra Esencia</a></li>
                         <li><a href="#booking">Reservas</a></li>
                         <li><a href="#contact">Contacto</a></li>
                     </ul>
                 </div>
+                <div class="footer-links">
+                    <h4>Servicios</h4>
+                    <ul>
+                        <li><a href="#collection">Maquillaje Natural</a></li>
+                        <li><a href="#collection">Soft Glam</a></li>
+                        <li><a href="#collection">Bridal & Editorial</a></li>
+                        <li><a href="#collection">Pestañas & Cejas</a></li>
+                    </ul>
+                </div>
                 <div class="footer-contact">
                     <h4>Contacto</h4>
-                    <p>WhatsApp: +123 456 789</p>
-                    <p>Email: info@glowbelleza.com</p>
+                    <p><a href="https://wa.me/123456789" target="_blank"
+                            style="color: #888; text-decoration: none;">WhatsApp: +123 456 789</a></p>
+                    <p>Email: info@beautymakeup.com</p>
+                    <p>Horario: Lun - Sáb: 9:00 AM - 6:00 PM</p>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; <?php echo date('Y'); ?> Glow Belleza. Todos los derechos reservados.</p>
+            <div class="footer-bottom"
+                style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <p>&copy; <?php echo date('Y'); ?> Beauty Makeup. Todos los derechos reservados.</p>
+                <div class="footer-legal">
+                    <a href="#"
+                        style="color: #666; font-size: 0.8rem; margin-left: 15px; text-decoration: none;">Privacidad</a>
+                    <a href="#"
+                        style="color: #666; font-size: 0.8rem; margin-left: 15px; text-decoration: none;">Términos</a>
+                </div>
             </div>
         </div>
     </footer>
@@ -257,18 +421,82 @@ session_start();
             const viewMoreContainer = document.getElementById('viewMoreContainer');
             const bookingForm = document.getElementById('bookingForm');
             const viewMoreBtn = document.getElementById('viewMoreBtn');
+            const metodoPagoSelect = document.getElementById('metodo-pago');
+            const cardDetailsContainer = document.getElementById('card-details');
             let showAllAppointments = false;
+
+            // Mostrar/Ocultar campos de tarjeta
+            if (metodoPagoSelect) {
+                metodoPagoSelect.addEventListener('change', (e) => {
+                    if (e.target.value === 'tarjeta') {
+                        cardDetailsContainer.style.display = 'block';
+                        // Hacer campos requeridos si se selecciona tarjeta
+                        document.getElementById('card-number').required = true;
+                        document.getElementById('card-expiry').required = true;
+                        document.getElementById('card-cvv').required = true;
+                        document.getElementById('card-name').required = true;
+                    } else {
+                        cardDetailsContainer.style.display = 'none';
+                        document.getElementById('card-number').required = false;
+                        document.getElementById('card-expiry').required = false;
+                        document.getElementById('card-cvv').required = false;
+                        document.getElementById('card-name').required = false;
+                    }
+                });
+            }
+
+            // Duraciones de servicios
+            const serviceDurations = {}; // Desactivado por solicitud de usuario
 
             let currentDate = new Date();
             let currentMonth = currentDate.getMonth();
             let currentYear = currentDate.getFullYear();
             let reservations = [];
 
+            // Actualizar disponibilidad en el menú (Hoy)
+            async function updateMenuAvailability() {
+                const badge = document.getElementById('menu-slots-count-badge');
+                if (!badge) return;
+
+                try {
+                    const todayStr = new Date().toISOString().split('T')[0];
+                    const response = await fetch(`api_availability.php?fecha=${todayStr}`);
+                    const data = await response.json();
+
+                    // Total slots (10) - slots reservados hoy
+                    const reservedCount = data.reserved ? data.reserved.length : 0;
+                    const available = 10 - reservedCount;
+
+                    if (available > 0) {
+                        badge.textContent = available;
+                        badge.style.display = 'inline-block';
+                    } else {
+                        badge.style.display = 'none';
+                    }
+                } catch (err) {
+                    console.error("Error updating menu availability:", err);
+                }
+            }
+
+            // Llamada inicial
+            updateMenuAvailability();
+
+
+
             // Horas de trabajo
             const businessHours = [
                 "09:00", "10:00", "11:00", "12:00", "13:00",
                 "14:00", "15:00", "16:00", "17:00", "18:00"
             ];
+
+            // Convertir hora 24h ("HH:MM") a 12h con AM/PM
+            function to12h(hora24) {
+                const [hStr, mStr] = hora24.split(':');
+                let h = parseInt(hStr, 10);
+                const ampm = h >= 12 ? 'PM' : 'AM';
+                h = h % 12 || 12;
+                return `${h}:${mStr} ${ampm}`;
+            }
 
             // 1. Obtener Reservas
             async function fetchReservations() {
@@ -406,6 +634,13 @@ session_start();
                     const data = await response.json();
                     const reserved = data.reserved || [];
 
+                    const totalSlots = businessHours.length;
+                    const availableSlots = totalSlots - reserved.length;
+                    const slotsCountEl = document.getElementById('slots-count');
+                    if (slotsCountEl) {
+                        slotsCountEl.textContent = availableSlots;
+                    }
+
                     hoursGridContainer.innerHTML = '';
 
                     // Comprobar fecha pasada
@@ -429,10 +664,10 @@ session_start();
 
                         if (isReserved) {
                             btn.classList.add('reserved');
-                            btn.textContent = hora; // Just time, crossed out via CSS
+                            btn.textContent = to12h(hora);
                         } else {
                             btn.classList.add('available');
-                            btn.textContent = hora;
+                            btn.textContent = to12h(hora);
                             btn.addEventListener('click', () => {
                                 document.querySelectorAll('.time-slot.selected').forEach(el => el.classList.remove('selected'));
                                 btn.classList.add('selected');
@@ -472,77 +707,84 @@ session_start();
                 bookingForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
                     const formData = new FormData(bookingForm);
-                    if (!bookingDateInput.value || !selectedHoraInput.value || !formData.get('servicio')) {
-                        alert('Por favor selecciona servicio, fecha y hora.');
+                    const selectedService = formData.get('servicio');
+                    const selectedHora = selectedHoraInput.value;
+                    const selectedFecha = bookingDateInput.value;
+
+                    if (!selectedFecha || !selectedHora || !selectedService) {
+                        alert('Por favor selecciona servicio, fecha y al menos una hora.');
                         return;
                     }
 
-                    const serviceMap = {
-                        'natural': { name: 'Maquillaje Natural', price: 500 },
-                        'soft-glam': { name: 'Soft Glam', price: 600 },
-                        'smokey-eyes': { name: 'Smokey Eyes', price: 1200 }
-                    };
-                    const selectedService = formData.get('servicio');
-                    const appointmentData = serviceMap[selectedService] || { name: 'Servicio', price: 0 };
-                    
-                    const resName = `Reserva: ${appointmentData.name}`;
-                    const metadata = {
-                        type: 'reservation',
-                        nombre: formData.get('nombre'),
-                        email: formData.get('email'),
-                        telefono: formData.get('telefono'),
-                        servicio: selectedService,
-                        fecha: formData.get('fecha'),
-                        hora: formData.get('hora')
-                    };
-                    
-                    const singleCartItem = { name: resName, price: appointmentData.price, metadata: metadata };
-                    
-                    // Enviar directamente
-                    const submitBtn = bookingForm.querySelector('button[type="submit"]');
-                    const originalText = submitBtn.textContent;
-                    submitBtn.textContent = 'Procesando...';
-                    submitBtn.disabled = true;
-
-                    try {
-                        const response = await fetch('api_create_invoice.php', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ cart: [singleCartItem], total: appointmentData.price })
-                        });
-                        const result = await response.json();
-
-                        if (result.success) {
-                            const successModal = document.getElementById('success-modal');
-                            if (successModal) successModal.style.display = 'flex';
-
-                            setTimeout(() => {
-                                window.location.href = `invoice.php?id=${result.invoice_id}`;
-                            }, 800);
-                            
-                            // Limpiar y cerrar modal
-                            bookingForm.reset();
-                            bookingDateInput.value = '';
-                            selectedHoraInput.value = '';
-                            document.querySelectorAll('.time-slot.selected').forEach(el => el.classList.remove('selected'));
-                            document.querySelectorAll('.calendar-day.selected').forEach(d => d.classList.remove('selected'));
-                            selectedDateDisplay.textContent = '';
-                            hoursGrid.style.display = 'none';
-                            document.getElementById('booking-modal-overlay').classList.remove('open');
-
-                            // Actualizar la lista de citas
-                            fetchReservations();
-                        } else {
-                            alert('Error al procesar la reserva: ' + result.message);
-                        }
-                    } catch (err) {
-                        console.error('Error en la reserva:', err);
-                        alert('Error de conexión.');
-                    } finally {
-                        submitBtn.textContent = originalText;
-                        submitBtn.disabled = false;
-                    }
+                    executeReservation(formData);
                 });
+            }
+
+            async function executeReservation(formData) {
+                const selectedService = formData.get('servicio');
+                const serviceMap = {
+                    'natural': { name: 'Maquillaje Natural', price: 500 },
+                    'soft-glam': { name: 'Soft Glam', price: 600 },
+                    'smokey-eyes': { name: 'Smokey Eyes', price: 1200 }
+                };
+                const appointmentData = serviceMap[selectedService] || { name: 'Servicio', price: 0 };
+
+                const resName = `Reserva: ${appointmentData.name}`;
+                const metadata = {
+                    type: 'reservation',
+                    nombre: formData.get('nombre'),
+                    email: formData.get('email'),
+                    telefono: formData.get('telefono'),
+                    servicio: selectedService,
+                    fecha: formData.get('fecha'),
+                    hora: formData.get('hora'),
+                    metodo_pago: formData.get('metodo_pago')
+                };
+
+                const singleCartItem = { name: resName, price: appointmentData.price, metadata: metadata };
+
+                const submitBtn = bookingForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Procesando...';
+                submitBtn.disabled = true;
+
+                try {
+                    const response = await fetch('api_create_invoice.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ cart: [singleCartItem], total: appointmentData.price })
+                    });
+                    const result = await response.json();
+
+                    if (result.success) {
+                        const successModal = document.getElementById('success-modal');
+                        if (successModal) successModal.style.display = 'flex';
+
+                        setTimeout(() => {
+                            window.location.href = `invoice.php?id=${result.invoice_id}`;
+                        }, 800);
+
+                        bookingForm.reset();
+                        bookingDateInput.value = '';
+                        selectedHoraInput.value = '';
+                        document.querySelectorAll('.time-slot.selected').forEach(el => el.classList.remove('selected'));
+                        document.querySelectorAll('.calendar-day.selected').forEach(d => d.classList.remove('selected'));
+                        selectedDateDisplay.textContent = '';
+                        hoursGrid.style.display = 'none';
+                        document.getElementById('booking-modal-overlay').classList.remove('open');
+
+                        fetchReservations();
+                        updateMenuAvailability();
+                    } else {
+                        alert('Error al procesar la reserva: ' + result.message);
+                    }
+                } catch (err) {
+                    console.error('Error en la reserva:', err);
+                    alert('Error de conexión.');
+                } finally {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
             }
 
 
@@ -557,15 +799,15 @@ session_start();
                     const serviceVal = btn.getAttribute('data-service');
                     const sel = document.querySelector('select[name="servicio"]');
                     const display = document.getElementById('selected-service-display');
-                    
-                    if(sel && serviceVal) {
+
+                    if (sel && serviceVal) {
                         sel.value = serviceVal;
                         if (display) {
                             const nameText = sel.options[sel.selectedIndex].text;
                             display.textContent = `Servicio Seleccionado: ${nameText}`;
                         }
                     }
-                    
+
                     const modal = document.getElementById('booking-modal-overlay');
                     if (modal) modal.classList.add('open');
                 });
@@ -612,6 +854,8 @@ session_start();
             <button id="close-success-modal" class="cta-button">Entendido</button>
         </div>
     </div>
+
+    <!-- El modal de duración ha sido eliminado a petición del usuario -->
 
 
 

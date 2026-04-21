@@ -1,6 +1,6 @@
 /* 
-  SISTEMA DE DISEÑO - LUXURY GLOW (bespoke edition)
-  Estética: High-End Editorial, Asimétrico, Minimalismo Cálido
+  SISTEMA DE DISEÃ‘O - LUXURY GLOW (bespoke edition)
+  EstÃ©tica: High-End Editorial, AsimÃ©trico, Minimalismo CÃ¡lido
 */
 
 :root {
@@ -51,66 +51,62 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Navegación Flotante y Minimalista */
+/* NavegaciÃ³n Flotante y Minimalista */
 header {
     position: fixed;
-    top: 2rem;
-    left: 5%;
-    right: 5%;
-    height: 70px;
-    padding: 0 2rem;
+    top: 1rem;
+    left: 2%;
+    right: 2%;
+    height: 60px;
+    padding: 0 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
     background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(223, 207, 190, 0.1);
-    border-radius: 40px;
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(223, 207, 190, 0.15);
+    border-radius: 50px;
     transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    white-space: nowrap !important;
 }
 
-header.scrolled {
-    top: 1rem;
-    height: 60px;
-    background: rgba(13, 13, 13, 0.95);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+.logo-container {
+    flex-shrink: 0;
 }
 
-.logo-link,
-.logo-link:hover,
-.logo-link:active,
-.logo-link:visited {
-    text-decoration: none !important;
+.logo-link {
     display: flex;
     align-items: center;
-    gap: 15px;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-    color: var(--primary-color) !important;
-}
-
-.logo-img-circular {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 1px solid var(--primary-color);
-    box-shadow: 0 0 15px rgba(223, 207, 190, 0.2);
-    transition: all 0.5s ease;
+    gap: 10px;
+    text-decoration: none;
+    white-space: nowrap;
 }
 
 .logo-text {
     font-family: var(--font-serif);
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 500;
-    letter-spacing: 4px;
+    letter-spacing: 0.5px;
     color: var(--primary-color) !important;
     text-transform: uppercase;
-    text-decoration: none !important;
-    border-bottom: none !important;
+    white-space: nowrap !important;
+}
+
+.logo-img-circular {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: contain;
+    transition: all 0.5s ease;
+}
+
+@media (max-width: 768px) {
+    .logo-img-circular {
+        width: 28px;
+        height: 28px;
+    }
 }
 
 .logo-link:hover .logo-img-circular {
@@ -118,25 +114,78 @@ header.scrolled {
     box-shadow: 0 0 25px rgba(223, 207, 190, 0.4);
 }
 
+nav {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
 .nav-links {
     list-style: none;
-    display: flex;
-    gap: 3rem;
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 1.2rem !important;
+    align-items: center !important;
+    white-space: nowrap !important;
 }
 
 .nav-links a {
     text-decoration: none;
     color: var(--text-color);
-    font-size: 0.8rem;
+    font-size: 0.68rem;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 400;
-    opacity: 0.6;
-    transition: opacity 0.3s;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    white-space: nowrap !important;
 }
 
 .nav-links a:hover {
     opacity: 1;
+    color: var(--primary-color);
+}
+
+.nav-cta {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 6px 14px !important;
+    background: var(--primary-color) !important;
+    color: #000 !important;
+    border-radius: 20px;
+    font-size: 0.68rem !important;
+    text-decoration: none;
+    font-weight: 600;
+    flex-shrink: 0;
+    white-space: nowrap !important;
+}
+
+.nav-cta #menu-slots-count-badge {
+    background: transparent !important;
+    color: inherit !important;
+    font-size: inherit !important;
+    font-weight: bold;
+    display: inline !important;
+}
+
+#logout-btn {
+    color: #ffaaaa !important;
+    opacity: 0.7;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    white-space: nowrap !important;
+}
+
+#logout-btn:hover {
+    opacity: 1;
+}
+
+.smart-tools a {
+    padding: 2px 0 !important;
+    font-size: 0.65rem !important;
+    border-bottom: none !important;
 }
 
 /* Hero Editorial */
@@ -186,7 +235,7 @@ header.scrolled {
     box-shadow: 30px 30px 0px rgba(223, 207, 190, 0.3);
 }
 
-/* Grilla de Colección - Elegante y Ordenada */
+/* Grilla de ColecciÃ³n - Elegante y Ordenada */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -214,7 +263,7 @@ header.scrolled {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between; /* Empuja el botón hacia abajo */
+    justify-content: space-between; /* Empuja el botÃ³n hacia abajo */
     height: 100%; /* Asegura que la tarjeta llene el contenedor */
 }
 
@@ -227,7 +276,7 @@ header.scrolled {
 
 .product-img {
     width: 100%;
-    height: 400px; /* Exactamente el mismo tamaño para todas */
+    height: 400px; /* Exactamente el mismo tamaÃ±o para todas */
     object-fit: cover; /* Ajusta sin deformar */
     object-position: center;
     border-radius: 8px;
@@ -241,7 +290,7 @@ header.scrolled {
 }
 
 .product-card .price {
-    margin-bottom: auto; /* Empuja el precio y deja espacio abajo para el botón */
+    margin-bottom: auto; /* Empuja el precio y deja espacio abajo para el botÃ³n */
 }
 
 .product-card:hover .product-img {
@@ -325,7 +374,7 @@ header.scrolled {
     left: 0;
 }
 
-/* Pie de página */
+/* Pie de pÃ¡gina */
 footer {
     padding: 5rem 5%;
     border-top: 1px solid #222;
@@ -414,7 +463,7 @@ footer {
     }
 }
 
-/* Revelación suave para secciones */
+/* RevelaciÃ³n suave para secciones */
 .reveal {
     opacity: 0;
     transform: translateY(50px);
@@ -426,7 +475,7 @@ footer {
     transform: translateY(0);
 }
 
-/* Simplificación de Layout */
+/* SimplificaciÃ³n de Layout */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -444,10 +493,7 @@ footer {
     padding: 8rem 0;
 }
 
-.philosophy-section .text-content {
-    flex: 1;
-    min-width: 300px;
-}
+
 
 .section-title {
     font-family: var(--font-serif);
@@ -474,7 +520,7 @@ footer {
     opacity: 0.8;
 }
 
-/* Móvil */
+/* MÃ³vil */
 .menu-toggle {
     display: none;
     flex-direction: column;
@@ -523,7 +569,7 @@ footer {
         height: 50vh;
     }
 
-    /* Mostrar automáticamente el cursor en dispositivos táctiles para evitar problemas */
+    /* Mostrar automÃ¡ticamente el cursor en dispositivos tÃ¡ctiles para evitar problemas */
     body {
         cursor: auto;
     }
@@ -534,7 +580,7 @@ footer {
     }
 }
 
-/* Sección de Reservas */
+/* SecciÃ³n de Reservas */
 .booking-section {
     position: relative;
     background-color: #0d0d0d;
@@ -599,7 +645,7 @@ footer {
     padding: 1rem;
 }
 
-/* Imagen de Filosofía */
+/* Imagen de FilosofÃ­a */
 .philosophy-img {
     flex: 1;
     height: 50vh;
@@ -612,6 +658,87 @@ footer {
     filter: brightness(1) contrast(1.1);
 }
 
+/* SecciÃ³n de Equipo / Desarrolladores */
+.dev-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.dev-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(223, 207, 190, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    position: relative;
+    text-align: center;
+    padding-bottom: 2rem;
+}
+
+.dev-card:hover {
+    transform: translateY(-15px);
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--primary-color);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.dev-img-container {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.dev-img-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to top, rgba(13, 13, 13, 0.8), transparent);
+}
+
+.dev-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.dev-card:hover .dev-img {
+    transform: scale(1.1);
+}
+
+.dev-info h3 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.dev-role {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.6;
+}
+
+@media (max-width: 1100px) {
+    .dev-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .dev-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 768px) {
     .form-group {
         flex-direction: column;
@@ -621,12 +748,8 @@ footer {
     .booking-form {
         padding: 1.5rem;
     }
-
-    .philosophy-img {
-        height: 50vh;
-        width: 100%;
-    }
 }
+
 
 /* Enlace Volver Simple */
 .back-link {
@@ -648,13 +771,13 @@ footer {
     transform: translateX(-5px);
 }
 
-/* Sección de Inicio de Sesión */
+/* SecciÃ³n de Inicio de SesiÃ³n */
 .login-section {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: var(--bg-color); /* Fondo sólido limpio */
+    background: var(--bg-color); /* Fondo sÃ³lido limpio */
     position: relative;
     padding: 20px;
     margin: 0;
@@ -704,7 +827,7 @@ footer {
 .input-box input {
     width: 100%;
     max-width: 90%;
-    /* Restringir visualmente el ancho para que parezca más centrado */
+    /* Restringir visualmente el ancho para que parezca mÃ¡s centrado */
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 16px 20px;
@@ -734,7 +857,7 @@ footer {
     /* Zoom sutil al enfocar */
 }
 
-/* Estilo de la cuadrícula de calendario / horas */
+/* Estilo de la cuadrÃ­cula de calendario / horas */
 .hours-container {
     width: 100%;
     margin-top: 1rem;
@@ -799,14 +922,14 @@ footer {
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
-    background: var(--primary-color); /* Botón sólido limpio */
+    background: var(--primary-color); /* BotÃ³n sÃ³lido limpio */
     color: #000;
     border: none;
     margin-top: 1.5rem;
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 2px;
-    border-radius: 4px; /* Menos redondeado, más elegante */
+    border-radius: 4px; /* Menos redondeado, mÃ¡s elegante */
     box-shadow: none;
 }
 
@@ -943,7 +1066,7 @@ footer {
     }
 }
 
-/* Implementación del Calendario de Reservas - Rediseño Minimalista */
+/* ImplementaciÃ³n del Calendario de Reservas - RediseÃ±o Minimalista */
 
 .booking-layout {
     display: flex;
@@ -957,7 +1080,7 @@ footer {
     margin-right: auto;
 }
 
-/* Sección de Calendario */
+/* SecciÃ³n de Calendario */
 .calendar-section {
     flex: 1.5;
 }
@@ -1029,7 +1152,7 @@ footer {
     gap: 8px;
 }
 
-/* Celda de Día Minimalista */
+/* Celda de DÃ­a Minimalista */
 .calendar-day {
     aspect-ratio: 1/1;
     background: #111;
@@ -1170,7 +1293,7 @@ footer {
 }
 
 
-/* Selección de Horas - Pastillas Limpias */
+/* SelecciÃ³n de Horas - Pastillas Limpias */
 .hours-container {
     margin-top: 2rem;
     border-top: 1px solid #333;
@@ -1215,7 +1338,7 @@ footer {
     text-decoration: line-through;
 }
 
-/* Integración del Botón CTA Pegajoso */
+/* IntegraciÃ³n del BotÃ³n CTA Pegajoso */
 .cta-button.sticky {
     background: #fff;
     color: #000;
@@ -1254,7 +1377,7 @@ footer {
     }
 }
 
-/* Cuadrícula de Fortalezas */
+/* CuadrÃ­cula de Fortalezas */
 .fortalezas-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1360,7 +1483,7 @@ footer {
     margin-bottom: 0.5rem;
 }
 
-/* Botón Volver Arriba */
+/* BotÃ³n Volver Arriba */
 .scroll-top-btn {
     position: fixed;
     bottom: 30px;
@@ -1404,3 +1527,34 @@ footer {
 .scroll-top-btn:hover svg {
     transform: translateY(-2px);
 }
+
+/* Contador de Citas Disponibles */
+#available-counter {
+    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    animation: fadeInDown 0.6s backwards;
+}
+
+#available-counter:hover {
+    background: rgba(223, 207, 190, 0.1) !important;
+    border-color: rgba(223, 207, 190, 0.3) !important;
+    transform: translateY(-2px);
+}
+
+#slots-count {
+    font-size: 1.2rem;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(223, 207, 190, 0.3);
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+

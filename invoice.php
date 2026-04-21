@@ -39,7 +39,7 @@ $stmt_items->close();
 $conexion->close();
 
 // Parsear fecha
-$fecha_formato = date('d/m/Y H:i', strtotime($factura['fecha'] ?? date('Y-m-d H:i:s')));
+$fecha_formato = date('d/m/Y g:i A', strtotime($factura['fecha'] ?? date('Y-m-d H:i:s')));
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -166,7 +166,7 @@ $fecha_formato = date('d/m/Y H:i', strtotime($factura['fecha'] ?? date('Y-m-d H:
 
 <div class="invoice-page-container">
     <div class="invoice-header">
-        <h1>LUXURY GLOW</h1>
+        <h1>BEAUTY MAKEUP</h1>
         <p>Comprobante de Reserva</p>
     </div>
 
@@ -195,6 +195,12 @@ $fecha_formato = date('d/m/Y H:i', strtotime($factura['fecha'] ?? date('Y-m-d H:
 
     <div class="invoice-total">
         Total: $<?php echo number_format($factura['total'], 2); ?>
+    </div>
+
+    <div style="text-align: center; margin-bottom: 2rem; padding: 1.5rem; border-top: 1px solid rgba(223,207,190,0.1);">
+        <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; color: #dfcfbe; font-size: 1.2rem; line-height: 1.6;">
+            "La belleza comienza en el momento en que decides ser tú misma."
+        </p>
     </div>
 
     <div class="actions">
