@@ -22,16 +22,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 header("Location: index.php");
                 exit();
             } else {
-                echo "<script>
-                    alert('Contraseña incorrecta.');
-                    window.location.href = 'login.php';
-                  </script>";
+                header("Location: login.php?error=wrongpass");
+                exit();
             }
         } else {
-            echo "<script>
-                alert('Usuario no encontrado.');
-                window.location.href = 'login.php';
-              </script>";
+            header("Location: login.php?error=notfound");
+            exit();
         }
         $stmt->close();
     } else {

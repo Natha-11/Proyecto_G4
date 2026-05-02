@@ -73,24 +73,110 @@ session_start();
     <section id="collection" class="section-padding" style="padding-top:0;">
         <h2 class="section-title reveal">La Colección</h2>
         <div class="product-grid">
-            <?php
-            include 'conexion.php';
-            $res = $conexion->query("SELECT * FROM servicios WHERE activo = 1");
-            while($s = $res->fetch_assoc()):
-            ?>
+            <!-- Tarjeta: NATURAL -->
             <div class="product-card reveal">
-                <img src="<?php echo htmlspecialchars($s['imagen']); ?>" alt="<?php echo htmlspecialchars($s['nombre']); ?>" class="product-img">
-                <h3 style="text-transform: uppercase;"><?php echo htmlspecialchars($s['nombre']); ?></h3>
-                <p class="price">$<?php echo number_format($s['precio'], 0); ?></p>
+                <img src="imagen1.jpg" alt="NATURAL" class="product-img">
+                <h3 style="text-transform: uppercase;">NATURAL</h3>
+                <p class="price">$500</p>
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <button class="cta-button reserve-btn" data-service="<?php echo htmlspecialchars(strtolower(str_replace(' ', '-', $s['nombre']))); ?>"
+                    <button class="cta-button reserve-btn" data-service="natural"
                         style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%;">Reservar</button>
                 <?php else: ?>
                     <a href="login.php" class="cta-button"
                         style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%; text-align:center;">Reservar</a>
                 <?php endif; ?>
             </div>
-            <?php endwhile; ?>
+            <!-- Tarjeta: SOFT GLAM -->
+            <div class="product-card reveal">
+                <img src="imagen2.jpg" alt="SOFT GLAM" class="product-img">
+                <h3 style="text-transform: uppercase;">SOFT GLAM</h3>
+                <p class="price">$600</p>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <button class="cta-button reserve-btn" data-service="soft-glam"
+                        style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%;">Reservar</button>
+                <?php else: ?>
+                    <a href="login.php" class="cta-button"
+                        style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%; text-align:center;">Reservar</a>
+                <?php endif; ?>
+            </div>
+            <!-- Tarjeta: SMOKEY -->
+            <div class="product-card reveal">
+                <img src="imagen3.jpg" alt="SMOKEY" class="product-img">
+                <h3 style="text-transform: uppercase;">SMOKEY</h3>
+                <p class="price">$1,200</p>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <button class="cta-button reserve-btn" data-service="smokey"
+                        style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%;">Reservar</button>
+                <?php else: ?>
+                    <a href="login.php" class="cta-button"
+                        style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%; text-align:center;">Reservar</a>
+                <?php endif; ?>
+            </div>
+            <!-- Tarjeta: EDITORIAL -->
+            <div class="product-card reveal">
+                <img src="imagen4.jpg" alt="EDITORIAL" class="product-img">
+                <h3 style="text-transform: uppercase;">EDITORIAL</h3>
+                <p class="price">$1,500</p>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <button class="cta-button reserve-btn" data-service="editorial"
+                        style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%;">Reservar</button>
+                <?php else: ?>
+                    <a href="login.php" class="cta-button"
+                        style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%; text-align:center;">Reservar</a>
+                <?php endif; ?>
+            </div>
+            <!-- Tarjeta: BRIDAL -->
+            <div class="product-card reveal">
+                <img src="bridal.jpg" alt="BRIDAL" class="product-img">
+                <h3 style="text-transform: uppercase;">BRIDAL</h3>
+                <p class="price">$2,000</p>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <button class="cta-button reserve-btn" data-service="bridal"
+                        style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%;">Reservar</button>
+                <?php else: ?>
+                    <a href="login.php" class="cta-button"
+                        style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%; text-align:center;">Reservar</a>
+                <?php endif; ?>
+            </div>
+            <!-- Tarjeta: GLAM NIGHT -->
+            <div class="product-card reveal">
+                <img src="nith.jpg" alt="GLAM NIGHT" class="product-img">
+                <h3 style="text-transform: uppercase;">GLAM NIGHT</h3>
+                <p class="price">$800</p>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <button class="cta-button reserve-btn" data-service="glam-night"
+                        style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%;">Reservar</button>
+                <?php else: ?>
+                    <a href="login.php" class="cta-button"
+                        style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%; text-align:center;">Reservar</a>
+                <?php endif; ?>
+            </div>
+            <!-- Tarjeta: Pestañas -->
+            <div class="product-card reveal">
+                <img src="pestañas.jpg" alt="Pestañas" class="product-img">
+                <h3 style="text-transform: uppercase;">Pestañas</h3>
+                <p class="price">$300</p>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <button class="cta-button reserve-btn" data-service="pestañas"
+                        style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%;">Reservar</button>
+                <?php else: ?>
+                    <a href="login.php" class="cta-button"
+                        style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%; text-align:center;">Reservar</a>
+                <?php endif; ?>
+            </div>
+            <!-- Tarjeta: Cejas -->
+            <div class="product-card reveal">
+                <img src="cejas.jpg" alt="Cejas" class="product-img">
+                <h3 style="text-transform: uppercase;">Cejas</h3>
+                <p class="price">$250</p>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <button class="cta-button reserve-btn" data-service="cejas"
+                        style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%;">Reservar</button>
+                <?php else: ?>
+                    <a href="login.php" class="cta-button"
+                        style="display:inline-block; margin-top:20px; padding: 10px 25px; width: 100%; text-align:center;">Reservar</a>
+                <?php endif; ?>
+            </div>
         </div>
     </section>
 

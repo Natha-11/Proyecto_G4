@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -24,6 +23,19 @@
         <div class="login-container">
             <div class="form-box login">
                 <h2>Iniciar Sesión</h2>
+                <?php if (isset($_GET['error'])): ?>
+                    <div
+                        style="background: rgba(255, 0, 0, 0.1); color: #ff6b6b; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center; border: 1px solid rgba(255, 0, 0, 0.2);">
+                        <?php
+                        if ($_GET['error'] == 'wrongpass1234')
+                            echo "Contraseña incorrecta.";
+                        elseif ($_GET['error'] == 'notfound')
+                            echo "Usuario no registrado.";
+                        else
+                            echo "Error al iniciar sesión.";
+                        ?>
+                    </div>
+                <?php endif; ?>
                 <form action="auth_login.php" method="POST">
                     <div class="input-box">
                         <input type="email" name="email" required placeholder="Correo Electrónico">
