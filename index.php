@@ -34,7 +34,6 @@ session_start();
             <ul class="nav-links">
                 <li><a href="#hero">Inicio</a></li>
                 <li><a href="#collection">Colección</a></li>
-                <li><a href="smart_beauty.php" style="color: var(--primary-color);">Análisis de piel</a></li>
                 <li><a href="#about">Nosotros</a></li>
                 <li><a href="#contact">Contacto</a></li>
                 <?php if (isset($_SESSION['user_id'])): ?>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión | glow belleza</title>
+    <title>Registro | glow belleza</title>
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,35 +17,25 @@
     <div class="cursor-dot" id="cursor-dot"></div>
     <div class="cursor-outline" id="cursor-outline"></div>
 
-    <a href="index.php" class="back-link">← Volver al Inicio</a>
+    <a href="login.php" class="back-link">← Volver al Login</a>
 
     <section class="login-section">
         <div class="login-container">
             <div class="form-box login">
-                <h2>Iniciar Sesión</h2>
-                <?php if (isset($_GET['error'])): ?>
-                    <div
-                        style="background: rgba(255, 0, 0, 0.1); color: #ff6b6b; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center; border: 1px solid rgba(255, 0, 0, 0.2);">
-                        <?php
-                        if ($_GET['error'] == 'wrongpass')
-                            echo "Contraseña incorrecta.";
-                        elseif ($_GET['error'] == 'notfound')
-                            echo "Usuario no registrado.";
-                        else
-                            echo "Error al iniciar sesión.";
-                        ?>
+                <h2>Regístrate</h2>
+                <form action="auth_register.php" method="POST">
+                    <div class="input-box">
+                        <input type="text" name="nombre" required placeholder="Nombre Completo">
                     </div>
-                <?php endif; ?>
-                <form action="auth_login.php" method="POST">
                     <div class="input-box">
                         <input type="email" name="email" required placeholder="Correo Electrónico">
                     </div>
                     <div class="input-box">
                         <input type="password" name="password" required placeholder="Contraseña">
                     </div>
-                    <button type="submit" class="cta-button">Entrar</button>
+                    <button type="submit" class="cta-button">Registrarse</button>
                     <div class="switch-link">
-                        <p>¿No tienes cuenta? <a href="registro.php">Regístrate</a></p>
+                        <p>¿Ya tienes cuenta? <a href="login.php">Inicia Sesión</a></p>
                     </div>
                 </form>
             </div>

@@ -48,6 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['user_name'] = $nombre;
 
             echo "<script>
+                alert('Su registro ha sido verificado.');
                 window.location.href = 'index.php';
               </script>";
 
