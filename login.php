@@ -27,7 +27,7 @@
                     <div
                         style="background: rgba(255, 0, 0, 0.1); color: #ff6b6b; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center; border: 1px solid rgba(255, 0, 0, 0.2);">
                         <?php
-                        if ($_GET['error'] == 'wrongpass')
+                        if ($_GET['error'] == 'wrongpass1234')
                             echo "Contraseña incorrecta.";
                         elseif ($_GET['error'] == 'notfound')
                             echo "Usuario no registrado.";

@@ -39,7 +39,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `username`, `password`, `email`) VALUES
-(1, 'admin', '$2y$10$cdpdZrSPBBD8t2E.DEZVj.CICiQ7mxSwTUB7/XhX3T0EGJlc5T1li', 'admin@glowbelleza.com');
+(1, 'admin', '1234', 'admin@glowbelleza.com');
 
 -- --------------------------------------------------------
 
